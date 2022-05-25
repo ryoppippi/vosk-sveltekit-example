@@ -1,8 +1,8 @@
-import adapter from "@sveltejs/adapter-static";
-import preprocess from "svelte-preprocess";
-import path from "path";
+import adapter from '@sveltejs/adapter-static';
+import preprocess from 'svelte-preprocess';
+import path from 'path';
 
-const dev = process.env.NODE_ENV === "development";
+const dev = process.env.NODE_ENV === 'development';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -15,8 +15,8 @@ const config = {
   kit: {
     adapter: adapter({
       // default options are shown
-      pages: "build",
-      assets: "build",
+      pages: 'build',
+      assets: 'build',
       fallback: null,
       precompress: true,
     }),
@@ -24,17 +24,17 @@ const config = {
       default: true,
     },
     paths: {
-      base: dev ? "" : "/vosk-sveltekit-example",
+      base: dev ? '' : '/vosk-sveltekit-example',
     },
-    appDir: "internal",
+    appDir: 'internal',
     vite: {
       define: {
         global: {},
       },
       resolve: {
         alias: {
-          $components: path.resolve("./src/components"),
-          $lib: path.resolve("./src/lib"),
+          $components: path.resolve('./src/components'),
+          $lib: path.resolve('./src/lib'),
         },
       },
     },
