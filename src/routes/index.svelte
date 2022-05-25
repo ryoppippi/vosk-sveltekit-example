@@ -18,7 +18,7 @@
 
   const createRecognizer = async () => {
     const model = await createModel(selectedModelPath);
-    const recognizer = new model.KaldiRecognizer(48000);
+    const recognizer = new model.KaldiRecognizer(sampleRate);
     recognizer.setWords(true);
     recognizer.on('result', (message) => {
       if (message.event == 'result') {
