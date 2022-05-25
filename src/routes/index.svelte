@@ -16,7 +16,7 @@
     window.AudioContext = window.AudioContext || window.webkitAuduioContext;
   }
 
-  const createRecognizer = async () => {
+  const createRecognizer = async (sampleRate: number) => {
     const model = await createModel(selectedModelPath);
     const recognizer = new model.KaldiRecognizer(sampleRate);
     recognizer.setWords(true);
@@ -43,9 +43,10 @@
   };
 
   const streamHandler = (stream: MediaStream) => {
-    const context = new AudioContext();
+    const context = new AudioContext({ sampleRate });
     const source = context.createBufferSource();
     const input = context.createMediaStreamSource(stream);
+    recognizer = createRecognizer(context.sampleRate);
     processor = context.createScriptProcessor(4096, 1, 1);
     input.connect(processor);
     processor.onaudioprocess = (e) => {
@@ -65,22 +66,20 @@
   };
 
   const start = () => {
-    recognizer = createRecognizer();
-    recognizer.then(() => {
-      textList = [];
-      navigator.mediaDevices
-        .getUserMedia({
-          video: false,
-          audio: {
-            echoCancellation: true,
-            noiseSuppression: false,
-            channelCount: 1,
-            sampleRate,
-          },
-        })
-        .then(streamHandler)
-        .catch((e) => console.error(e));
-    });
+    textList = [];
+    recognizer = 0;
+    navigator.mediaDevices
+      .getUserMedia({
+        video: false,
+        audio: {
+          echoCancellation: true,
+          noiseSuppression: false,
+          channelCount: 1,
+          sampleRate,
+        },
+      })
+      .then(streamHandler)
+      .catch((e) => console.error(e));
   };
 </script>
 
@@ -100,6 +99,7 @@
             class="btn"
             class:btn-primary={!recognizer}
             class:btn-secondary={recognizer}
+            class:btn-disabled={recognizer === 0}
           >
             {recognizer ? 'Stop' : 'Start'}
           </button>

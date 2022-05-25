@@ -78,13 +78,11 @@
     if (selectedValue) {
       selectedModelPath = getModelPath(selectedValue);
       if (browser) selectedValueInLS.set(selectedValue);
-      console.log($selectedValueInLS);
     }
   }
 
   onMount(() => {
     if (browser && $selectedValueInLS) selectedValue = $selectedValueInLS;
-    console.log($selectedValueInLS);
   });
 </script>
 
