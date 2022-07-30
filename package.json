@@ -11,8 +11,7 @@
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint .",
-    "format": "prettier --ignore-path .gitignore --ignore-path package-lock.json --write --plugin-search-dir=. .",
-    "deploy": "npm run build && gh-pages -d build -t true"
+    "format": "prettier --ignore-path .gitignore --ignore-path package-lock.json --write --plugin-search-dir=. ."
   },
   "devDependencies": {
     "@playwright/test": "^1.21.0",
